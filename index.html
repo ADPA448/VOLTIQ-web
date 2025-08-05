@@ -1,0 +1,1783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VOLTIQ PRO</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#eff6ff',
+              100: '#dbeafe', 
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              900: '#1e3a8a'
+            },
+            accent: {
+              50: '#fef2f2',
+              100: '#fee2e2',
+              500: '#ef4444',
+              600: '#dc2626',
+              700: '#b91c1c'
+            },
+            warning: {
+              50: '#fffbeb',
+              100: '#fef3c7',
+              500: '#f59e0b',
+              600: '#d97706'
+            },
+            neutral: {
+              50: '#f8fafc',
+              100: '#f1f5f9',
+              200: '#e2e8f0',
+              300: '#cbd5e1',
+              400: '#94a3b8',
+              500: '#64748b',
+              600: '#475569',
+              700: '#334155',
+              800: '#1e293b',
+              900: '#0f172a'
+            }
+          },
+          fontFamily: {
+            'sans': ['Inter', 'system-ui', 'sans-serif']
+          },
+          spacing: {
+            '18': '4.5rem',
+            '88': '22rem'
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    /* 8-Point Grid System */
+    * {
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+    
+    .container-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    
+    /* Typography Hierarchy */
+    .text-h1 { font-size: 2.5rem; font-weight: 800; line-height: 1.2; }
+    .text-h2 { font-size: 2rem; font-weight: 700; line-height: 1.3; }
+    .text-h3 { font-size: 1.5rem; font-weight: 600; line-height: 1.4; }
+    .text-h4 { font-size: 1.25rem; font-weight: 600; line-height: 1.4; }
+    .text-body { font-size: 1rem; font-weight: 400; line-height: 1.6; }
+    .text-caption { font-size: 0.875rem; font-weight: 500; line-height: 1.5; }
+    .text-small { font-size: 0.75rem; font-weight: 400; line-height: 1.5; }
+    
+    /* Modern Gradient Background */
+    .gradient-bg {
+      background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 25%, #ef4444 50%, #f59e0b 75%, #ffffff 100%);
+      min-height: 100vh;
+    }
+    
+    /* Glass Morphism Effect */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 
+        0 4px 16px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+    
+    /* Neumorphism Elements */
+    .neu-card {
+      background: #f8fafc;
+      border-radius: 16px;
+      box-shadow: 
+        4px 4px 12px rgba(148, 163, 184, 0.12),
+        -4px -4px 12px rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(226, 232, 240, 0.4);
+    }
+    
+    .neu-input {
+      background: #f8fafc;
+      border-radius: 12px;
+      box-shadow: 
+        inset 2px 2px 6px rgba(148, 163, 184, 0.08),
+        inset -2px -2px 6px rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(226, 232, 240, 0.3);
+      transition: all 200ms ease-in-out;
+    }
+    
+    .neu-input:focus {
+      box-shadow: 
+        inset 1px 1px 3px rgba(59, 130, 246, 0.15),
+        inset -1px -1px 3px rgba(255, 255, 255, 0.7),
+        0 0 0 2px rgba(59, 130, 246, 0.08);
+      border-color: #3b82f6;
+    }
+    
+    /* Modern Button Styles */
+    .btn-primary {
+      background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 24px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      transition: all 200ms ease-in-out;
+      box-shadow: 0 3px 8px rgba(59, 130, 246, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 5px 16px rgba(59, 130, 246, 0.25);
+    }
+    
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+    
+    .btn-accent {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      box-shadow: 0 3px 8px rgba(239, 68, 68, 0.2);
+    }
+    
+    .btn-accent:hover {
+      box-shadow: 0 5px 16px rgba(239, 68, 68, 0.25);
+    }
+    
+    .btn-warning {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      box-shadow: 0 3px 8px rgba(245, 158, 11, 0.2);
+    }
+    
+    .btn-warning:hover {
+      box-shadow: 0 5px 16px rgba(245, 158, 11, 0.25);
+    }
+    
+    /* Ripple Effect */
+    .ripple {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .ripple::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.3s, height 0.3s;
+    }
+    
+    .ripple:active::before {
+      width: 300px;
+      height: 300px;
+    }
+    
+    /* Hover effects */
+    .hover-lift {
+      transition: all 200ms ease-in-out;
+    }
+    
+    .hover-lift:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    }
+    
+    /* Status Indicators */
+    .status-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 8px;
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+    }
+    
+    .status-success { background: #10b981; }
+    .status-warning { background: #f59e0b; }
+    .status-error { background: #ef4444; }
+    
+    /* Animated Elements */
+    .fade-in {
+      animation: fadeIn 600ms ease-out forwards;
+      opacity: 0;
+    }
+    
+    .slide-up {
+      animation: slideUp 800ms ease-out forwards;
+      opacity: 0;
+      transform: translateY(32px);
+    }
+    
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    
+    @keyframes slideUp {
+      to { 
+        opacity: 1; 
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+    }
+    
+    /* Loading Spinner */
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top: 2px solid #ffffff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Responsive Grid */
+    .grid-responsive {
+      display: grid;
+      gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+    
+    @media (min-width: 768px) {
+      .grid-responsive {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      .grid-responsive {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    
+    /* Responsive Grid for MCB */
+    .mcb-grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: 1fr;
+    }
+    
+    @media (min-width: 640px) {
+      .mcb-grid {
+        grid-template-columns: auto 1fr auto auto auto;
+        align-items: end;
+      }
+    }
+    
+    /* Language Switcher */
+    .lang-switcher {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      z-index: 1000;
+    }
+    
+    /* Custom Scrollbar */
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f1f5f9;
+      border-radius: 4px;
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+    
+    /* Enhanced Diagram Styles */
+    .diagram-container {
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      border: 2px solid #cbd5e1;
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .diagram-svg {
+      width: 100%;
+      height: auto;
+      min-height: 400px;
+      transition: all 300ms ease-in-out;
+    }
+    
+    @media (min-width: 640px) {
+      .diagram-svg {
+        min-height: 500px;
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      .diagram-svg {
+        min-height: 600px;
+      }
+    }
+    
+    /* Interactive SVG Elements */
+    .component-hover {
+      cursor: pointer;
+      transition: all 200ms ease-in-out;
+    }
+    
+    .component-hover:hover {
+      filter: drop-shadow(0 4px 8px rgba(59, 130, 246, 0.3));
+      transform: scale(1.02);
+    }
+    
+    .wire-line {
+      stroke: #ef4444;
+      stroke-width: 3;
+      stroke-dasharray: 8,4;
+      animation: dash 2s linear infinite;
+      transition: all 200ms ease-in-out;
+    }
+    
+    .wire-line:hover {
+      stroke-width: 4;
+      filter: drop-shadow(0 0 4px rgba(239, 68, 68, 0.5));
+    }
+    
+    @keyframes dash {
+      to { stroke-dashoffset: -12; }
+    }
+    
+    /* Power Flow Animation */
+    .power-flow {
+      fill: #3b82f6;
+      animation: powerFlow 2s ease-in-out infinite;
+    }
+    
+    @keyframes powerFlow {
+      0% { opacity: 0.3; r: 3; }
+      50% { opacity: 1; r: 5; }
+      100% { opacity: 0.3; r: 3; }
+    }
+    
+    .component-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      fill: #334155;
+      transition: all 200ms ease-in-out;
+    }
+    
+    /* Responsive text sizing */
+    @media (max-width: 767px) {
+      .component-text {
+        font-size: 9px;
+      }
+    }
+    
+    /* Tooltip Styles */
+    .tooltip {
+      position: fixed;
+      background: rgba(0, 0, 0, 0.9);
+      color: white;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      z-index: 10000;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: all 200ms ease-in-out;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    
+    .tooltip.show {
+      opacity: 1;
+      transform: translateY(-5px);
+    }
+    
+    /* Diagram Controls */
+    .diagram-controls {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      display: flex;
+      gap: 8px;
+      z-index: 100;
+    }
+    
+    .control-btn {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      padding: 8px;
+      cursor: pointer;
+      transition: all 200ms ease-in-out;
+      backdrop-filter: blur(10px);
+      color: #334155;
+    }
+    
+    .control-btn:hover {
+      background: rgba(59, 130, 246, 0.1);
+      border-color: #3b82f6;
+      color: #3b82f6;
+      transform: scale(1.05);
+    }
+    
+    /* Enhanced Status Indicators */
+    .status-indicator {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.7; }
+      100% { opacity: 1; }
+    }
+    
+    /* Zoom and Pan */
+    .diagram-svg.zoomed {
+      cursor: move;
+    }
+    
+    /* Mobile-First Touch Controls */
+    @media (max-width: 768px) {
+      .diagram-controls {
+        bottom: 16px;
+        top: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(255, 255, 255, 0.95);
+        padding: 8px;
+        border-radius: 12px;
+        backdrop-filter: blur(15px);
+      }
+      
+      .control-btn {
+        padding: 12px;
+        border-radius: 10px;
+      }
+    }
+  </style>
+</head>
+<body class="gradient-bg">
+  <!-- Language Switcher -->
+  <div class="lang-switcher">
+    <div class="glass-card rounded-xl p-2">
+      <select id="language-select" class="neu-input px-3 py-2 text-caption font-semibold bg-transparent border-0 outline-none">
+        <option value="en">🇺🇸 English</option>
+        <option value="th">🇹🇭 ไทย</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Tooltip -->
+  <div id="tooltip" class="tooltip"></div>
+
+  <!-- Header -->
+  <header class="py-12 fade-in">
+    <div class="container-grid">
+      <div class="glass-card rounded-3xl p-8 text-center hover-lift">
+        <h1 class="text-h1 bg-gradient-to-r from-primary-600 via-accent-500 to-warning-500 bg-clip-text text-transparent mb-4">
+          <i class="fas fa-bolt mr-4"></i><span data-key="app-title">VOLTIQ PRO</span>
+        </h1>
+        <p class="text-h4 text-neutral-600" data-key="app-subtitle">Electrical System Calculator</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="container-grid pb-16 space-y-12">
+    <!-- Section 1: Load Center to PDB -->
+    <section class="slide-up hover-lift">
+      <div class="neu-card p-8">
+        <div class="flex items-center mb-8">
+          <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center mr-6 shadow-lg">
+            <span class="text-white text-2xl font-bold">1</span>
+          </div>
+          <div>
+            <h2 class="text-h2 text-neutral-800" data-key="section1-title">Load Center to ACPDB</h2>
+            <p class="text-caption text-neutral-500" data-key="section1-desc">Calculate main system parameters</p>
+          </div>
+        </div>
+
+        <div class="grid-responsive mb-8">
+          <div class="space-y-3">
+            <label class="block text-caption font-semibold text-neutral-700" data-key="system-type">System Type</label>
+            <select id="select-system-type" class="neu-input w-full px-4 py-3 text-body font-medium outline-none">
+              <option value="single" data-key="single-phase">Single-Phase</option>
+              <option value="threeY" data-key="three-phase-y">3-Phase Y (Star)</option>
+              <option value="threeD" data-key="three-phase-d">3-Phase Δ (Delta)</option>
+            </select>
+          </div>
+          
+          <div class="space-y-3">
+            <label class="block text-caption font-semibold text-neutral-700" data-key="main-breaker">Main Breaker (A)</label>
+            <input id="input-main-breaker" type="number" min="0" class="neu-input w-full px-4 py-3 text-body font-medium outline-none" placeholder="e.g. 50" />
+          </div>
+          
+          <div class="space-y-3">
+            <label class="block text-caption font-semibold text-neutral-700" data-key="power">Power (W)</label>
+            <input id="input-power" type="number" min="0" class="neu-input w-full px-4 py-3 text-body font-medium outline-none" placeholder="e.g. 5000" />
+          </div>
+          
+          <div class="space-y-3">
+            <label class="block text-caption font-semibold text-neutral-700" data-key="wire-length">Wire Length (m)</label>
+            <input id="input-length" type="number" min="0" class="neu-input w-full px-4 py-3 text-body font-medium outline-none" placeholder="e.g. 20" />
+          </div>
+          
+          <div class="space-y-3">
+            <label class="block text-caption font-semibold text-neutral-700" data-key="wire-type">Wire Type</label>
+            <select id="select-wire-type" class="neu-input w-full px-4 py-3 text-body font-medium outline-none">
+              <option value="THW">THW</option>
+              <option value="VFF">VFF</option>
+              <option value="VCT">VCT</option>
+              <option value="VCT-G">VCT-G</option>
+              <option value="NYY">NYY</option>
+            </select>
+          </div>
+          
+          <div class="space-y-3">
+            <label class="block text-caption font-semibold text-neutral-700" data-key="conduit-type">Conduit Type</label>
+            <select id="select-conduit-type" class="neu-input w-full px-4 py-3 text-body font-medium outline-none">
+              <option value="EMT">EMT</option>
+              <option value="IMC">IMC</option>
+              <option value="Flexible Metal">Flexible Metal</option>
+              <option value="PVC">PVC</option>
+              <option value="HDPE">HDPE</option>
+            </select>
+          </div>
+        </div>
+        
+        <button id="btn-calc-system" class="btn-primary ripple px-8 py-4 text-h4 font-bold">
+          <i class="fas fa-calculator mr-3"></i><span data-key="calculate-system">Calculate System</span>
+        </button>
+        
+        <div id="results-system" class="mt-12 hidden">
+          <h3 class="text-h3 text-neutral-800 mb-6">
+            <i class="fas fa-chart-bar mr-3 text-primary-500"></i><span data-key="system-results">System Results</span>
+          </h3>
+          <div class="grid-responsive">
+            <div class="glass-card p-6 rounded-2xl hover-lift">
+              <div class="flex items-center">
+                <span class="status-dot status-success status-indicator"></span>
+                <div>
+                  <div class="text-caption font-semibold text-neutral-600" data-key="total-load">Total Load</div>
+                  <div class="text-h4 font-bold text-primary-600"><span id="res-total-load"></span> A</div>
+                </div>
+              </div>
+            </div>
+            <div class="glass-card p-6 rounded-2xl hover-lift">
+              <div class="flex items-center">
+                <span class="status-dot status-success status-indicator"></span>
+                <div>
+                  <div class="text-caption font-semibold text-neutral-600" data-key="total-power">Total Power</div>
+                  <div class="text-h4 font-bold text-primary-600"><span id="res-total-power"></span> W</div>
+                </div>
+              </div>
+            </div>
+            <div class="glass-card p-6 rounded-2xl hover-lift">
+              <div class="flex items-center">
+                <span class="status-dot status-success status-indicator"></span>
+                <div>
+                  <div class="text-caption font-semibold text-neutral-600" data-key="wire-size">Wire Size</div>
+                  <div class="text-h4 font-bold text-primary-600"><span id="res-wire-size"></span> mm²</div>
+                </div>
+              </div>
+            </div>
+            <div class="glass-card p-6 rounded-2xl hover-lift">
+              <div class="flex items-center">
+                <span class="status-dot status-success status-indicator"></span>
+                <div>
+                  <div class="text-caption font-semibold text-neutral-600" data-key="conduit-size">Conduit Size</div>
+                  <div class="text-h4 font-bold text-primary-600"><span id="res-conduit-inch"></span></div>
+                </div>
+              </div>
+            </div>
+            <div class="glass-card p-6 rounded-2xl hover-lift">
+              <div class="flex items-center">
+                <span class="status-dot status-indicator" id="voltage-drop-status"></span>
+                <div>
+                  <div class="text-caption font-semibold text-neutral-600" data-key="voltage-drop">Voltage Drop</div>
+                  <div class="text-h4 font-bold" id="res-voltage-drop-color"><span id="res-voltage-drop"></span></div>
+                  <div class="text-small text-neutral-500 mt-1">
+                    IEC 60364-5-52: ≤ <span id="res-vd-threshold"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="glass-card p-6 rounded-2xl hover-lift">
+              <div class="flex items-center">
+                <span class="status-dot status-success status-indicator"></span>
+                <div>
+                  <div class="text-caption font-semibold text-neutral-600" data-key="ground-wire">Ground Wire</div>
+                  <div class="text-h4 font-bold text-primary-600"><span id="res-ground-wire"></span> mm²</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: PDB to Equipment -->
+    <section class="slide-up hover-lift">
+      <div class="neu-card p-8">
+        <div class="flex items-center mb-8">
+          <div class="w-16 h-16 bg-gradient-to-br from-accent-500 to-accent-600 rounded-2xl flex items-center justify-center mr-6 shadow-lg">
+            <span class="text-white text-2xl font-bold">2</span>
+          </div>
+          <div>
+            <h2 class="text-h2 text-neutral-800" data-key="section2-title">ACPDB to Equipment</h2>
+            <p class="text-caption text-neutral-500" data-key="section2-desc">Configure individual circuits</p>
+          </div>
+        </div>
+        
+        <div id="mcb-list" class="space-y-4 mb-8"></div>
+        
+        <div class="flex flex-wrap gap-4">
+          <button id="btn-add-mcb" class="btn-primary ripple px-6 py-3 text-caption font-bold">
+            <i class="fas fa-plus mr-2"></i><span data-key="add-mcb">Add MCB</span>
+          </button>
+          <button id="btn-clear-mcb" class="btn-accent ripple px-6 py-3 text-caption font-bold">
+            <i class="fas fa-trash mr-2"></i><span data-key="clear-all">Clear All</span>
+          </button>
+          <button id="btn-calc-mcb" class="btn-warning ripple px-6 py-3 text-caption font-bold">
+            <i class="fas fa-calculator mr-2"></i><span data-key="calculate-pdb">Calculate ACPDB</span>
+          </button>
+        </div>
+        
+        <div id="results-pdb" class="mt-12 hidden">
+          <h3 class="text-h3 text-neutral-800 mb-6">
+            <i class="fas fa-list-check mr-3 text-accent-500"></i><span data-key="pdb-results">ACPDB Results</span>
+          </h3>
+          <div id="pdb-results" class="grid-responsive"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Interactive Single Line Diagram -->
+    <section class="slide-up hover-lift">
+      <div class="neu-card p-8">
+        <div class="flex items-center mb-8">
+          <div class="w-16 h-16 bg-gradient-to-br from-warning-500 to-warning-600 rounded-2xl flex items-center justify-center mr-6 shadow-lg">
+            <span class="text-white text-2xl font-bold">3</span>
+          </div>
+          <div>
+            <h2 class="text-h2 text-neutral-800" data-key="section3-title">Single Line Diagram</h2>
+            <p class="text-caption text-neutral-500" data-key="section3-desc">Visual system representation</p>
+          </div>
+        </div>
+        
+        <div class="diagram-container custom-scrollbar relative">
+          <!-- Diagram Controls -->
+          <div class="diagram-controls">
+            <button id="zoom-in" class="control-btn" title="Zoom In">
+              <i class="fas fa-search-plus"></i>
+            </button>
+            <button id="zoom-out" class="control-btn" title="Zoom Out">
+              <i class="fas fa-search-minus"></i>
+            </button>
+            <button id="reset-view" class="control-btn" title="Reset View">
+              <i class="fas fa-expand-arrows-alt"></i>
+            </button>
+            <button id="export-diagram" class="control-btn" title="Export PNG">
+              <i class="fas fa-download"></i>
+            </button>
+            <button id="toggle-animation" class="control-btn" title="Toggle Animation">
+              <i class="fas fa-play"></i>
+            </button>
+          </div>
+          
+          <svg id="single-line-diagram" class="diagram-svg" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+              </pattern>
+              <filter id="glow">
+                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                <feMerge> 
+                  <feMergeNode in="coloredBlur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+              <linearGradient id="powerGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.3" />
+                <stop offset="50%" style="stop-color:#3b82f6;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:0.3" />
+              </linearGradient>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+          </svg>
+        </div>
+        
+        <div id="system-info-panel" class="glass-card p-6 rounded-2xl mt-8 hidden">
+          <h4 class="text-h4 text-neutral-800 mb-4">
+            <i class="fas fa-info-circle mr-3 text-warning-500"></i><span data-key="system-info">System Information</span>
+          </h4>
+          <div class="grid-responsive text-caption">
+            <div id="info-wire-type" class="text-neutral-700"></div>
+            <div id="info-conduit" class="text-neutral-700"></div>
+            <div id="info-length" class="text-neutral-700"></div>
+            <div id="info-system" class="text-neutral-700"></div>
+            <div id="info-voltage-drop" class="text-neutral-700"></div>
+            <div id="info-compliance" class="text-accent-600 font-semibold"></div>
+          </div>
+        </div>
+        
+        <div class="text-center mt-8">
+          <button id="btn-generate-diagram" class="btn-warning ripple px-8 py-4 text-h4 font-bold">
+            <i class="fas fa-project-diagram mr-3"></i><span data-key="generate-diagram">Generate Interactive Diagram</span>
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-8 text-center">
+    <div class="glass-card inline-block px-8 py-4 rounded-2xl">
+      <p class="text-caption text-neutral-600">
+        © 2025 <span data-key="app-title">VOLTIQ</span> - <span data-key="footer-desc">Electrical System Calculator by AD_PA GNR3</span>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // Language translations
+    const translations = {
+      en: {
+        'app-title': 'VOLTIQ',
+        'app-subtitle': 'Electrical System Calculator',
+        'section1-title': 'Main Load to ACPDB',
+        'section1-desc': 'Calculate main system parameters',
+        'section2-title': 'ACPDB to Equipment',
+        'section2-desc': 'Configure individual circuits',
+        'section3-title': 'Single Line Diagram',
+        'section3-desc': 'Visual system representation',
+        'system-type': 'System Type',
+        'single-phase': 'Single-Phase',
+        'three-phase-y': '3-Phase Y (Star)',
+        'three-phase-d': '3-Phase Δ (Delta)',
+        'main-breaker': 'Main Breaker (A)',
+        'power': 'Power (W)',
+        'wire-length': 'Wire Length (m)',
+        'wire-type': 'Wire Type',
+        'conduit-type': 'Conduit Type',
+        'calculate-system': 'Calculate System',
+        'system-results': 'System Results',
+        'total-load': 'Total Load',
+        'total-power': 'Total Power',
+        'wire-size': 'Wire Size',
+        'conduit-size': 'Conduit Size',
+        'voltage-drop': 'Voltage Drop',
+        'ground-wire': 'Ground Wire',
+        'add-mcb': 'Add MCB',
+        'clear-all': 'Clear All',
+        'calculate-pdb': 'Calculate ACPDB',
+        'pdb-results': 'ACPDB Results',
+        'generate-diagram': 'Generate Interactive Diagram',
+        'system-info': 'System Information',
+        'footer-desc': 'Electrical System Calculator',
+        'mcb-size': 'MCB Size',
+        'circuit-name': 'Circuit Name',
+        'circuit-power': 'Power (W)',
+        'load-percent': 'Load %',
+        'remove': 'Remove',
+        'circuit-placeholder': 'Circuit Name',
+        'main-supply': 'Main\nSupply',
+        'main-breaker-label': 'Main Breaker',
+        'pdb-panel': 'ACPDB\nPanel Board',
+        'wire-info': 'Wire Info',
+        'click-for-details': 'Click for details'
+      },
+      th: {
+        'app-title': 'โวลไอคิว',
+        'app-subtitle': 'โปรแกรมคำนวณระบบไฟฟ้า',
+        'section1-title': 'โหลดหลัก ไปที่ ACPDB',
+        'section1-desc': 'คำนวณพารามิเตอร์หลักของระบบ',
+        'section2-title': 'ACPDB ไปยังอุปกรณ์',
+        'section2-desc': 'กำหนดค่าวงจรแต่ละตัว',
+        'section3-title': 'แผนผังไฟฟ้า',
+        'section3-desc': 'แสดงภาพระบบไฟฟ้า',
+        'system-type': 'ประเภทระบบ',
+        'single-phase': 'เฟสเดียว',
+        'three-phase-y': '3 เฟส แบบ Y (Star)',
+        'three-phase-d': '3 เฟส แบบ Δ (Delta)',
+        'main-breaker': 'เบรกเกอร์หลัก (A)',
+        'power': 'กำลังไฟฟ้า (W)',
+        'wire-length': 'ความยาวสาย (m)',
+        'wire-type': 'ประเภทสายไฟ',
+        'conduit-type': 'ประเภทท่อร้อยสาย',
+        'calculate-system': 'คำนวณระบบ',
+        'system-results': 'ผลการคำนวณ',
+        'total-load': 'โหลดรวม',
+        'total-power': 'กำลังไฟรวม',
+        'wire-size': 'ขนาดสาย',
+        'conduit-size': 'ขนาดท่อ',
+        'voltage-drop': 'แรงดันตก',
+        'ground-wire': 'สายดิน',
+        'add-mcb': 'เพิ่ม MCB',
+        'clear-all': 'ลบทั้งหมด',
+        'calculate-pdb': 'คำนวณ ACPDB',
+        'pdb-results': 'ผลการคำนวณ ACPDB',
+        'generate-diagram': 'สร้างแผนผัง',
+        'system-info': 'ข้อมูลระบบ',
+        'footer-desc': 'โปรแกรมคำนวณระบบไฟฟ้า',
+        'mcb-size': 'ขนาด MCB',
+        'circuit-name': 'ชื่อวงจร',
+        'circuit-power': 'กำลังไฟ (W)',
+        'load-percent': 'โหลด %',
+        'remove': 'ลบ',
+        'circuit-placeholder': 'ชื่อวงจร',
+        'main-supply': 'แหล่งจ่าย\nหลัก',
+        'main-breaker-label': 'เบรกเกอร์หลัก',
+        'pdb-panel': 'ACPDB\nแผงจ่ายไฟ',
+        'wire-info': 'ข้อมูลสาย',
+        'click-for-details': 'คลิกเพื่อดูรายละเอียด'
+      }
+    };
+
+    // Constants for calculations
+    const RHO_CU = 1.72e-8;
+    const AREA_MAP = {THW:2.5e-6, VFF:4e-6, VCT:10e-6, 'VCT-G':10e-6, NYY:16e-6};
+    
+    const WIRE_SIZE_MAP = {
+      THW: {
+        10: 2.5, 15: 2.5, 20: 4, 30: 6, 32: 10, 40: 10, 
+        50: 16, 63: 25, 80: 35, 100: 50, 125: 70, 150: 95, 200: 120, 250: 150
+      },
+      VFF: {
+        10: 4, 15: 4, 20: 6, 30: 10, 32: 16, 40: 16,
+        50: 25, 63: 35, 80: 50, 100: 70, 125: 95, 150: 120, 200: 150, 250: 185
+      },
+      VCT: {
+        10: 10, 15: 10, 20: 16, 30: 25, 32: 35, 40: 35,
+        50: 50, 63: 70, 80: 95, 100: 120, 125: 150, 150: 185, 200: 240, 250: 300
+      },
+      'VCT-G': {
+        10: 10, 15: 10, 20: 16, 30: 25, 32: 35, 40: 35,
+        50: 50, 63: 70, 80: 95, 100: 120, 125: 150, 150: 185, 200: 240, 250: 300
+      },
+      NYY: {
+        10: 16, 15: 16, 20: 25, 30: 35, 32: 50, 40: 50,
+        50: 70, 63: 95, 80: 120, 100: 150, 125: 185, 150: 240, 200: 300, 250: 400
+      }
+    };
+    
+    const GROUND_TABLE = [
+      {min:10,max:10,size:1.5},{min:15,max:15,size:1.5},{min:20,max:20,size:2.5},
+      {min:30,max:30,size:4},{min:32,max:32,size:6},{min:40,max:40,size:6},
+      {min:50,max:50,size:10},{min:63,max:63,size:16},{min:80,max:80,size:25},
+      {min:100,max:100,size:35},{min:125,max:125,size:50},{min:150,max:150,size:70},
+      {min:200,max:200,size:95},{min:250,max:250,size:120}
+    ];
+    
+    const STANDARD_BREAKERS = [6,10,16,20,25,32,40,50,63,80,100,125,150,200,250];
+
+    // Global variables
+    let systemData = {};
+    let mcbData = [];
+    let currentLanguage = 'en';
+    let diagramZoom = 1;
+    let diagramPan = { x: 0, y: 0 };
+    let animationEnabled = true;
+    let powerFlowIntervals = [];
+
+    // Enhanced tooltip system
+    const tooltip = document.getElementById('tooltip');
+
+    function showTooltip(event, content) {
+      tooltip.innerHTML = content;
+      tooltip.style.left = event.pageX + 15 + 'px';
+      tooltip.style.top = event.pageY - 10 + 'px';
+      tooltip.classList.add('show');
+    }
+
+    function hideTooltip() {
+      tooltip.classList.remove('show');
+    }
+
+    // Language management
+    function updateLanguage(lang) {
+      currentLanguage = lang;
+      document.querySelectorAll('[data-key]').forEach(element => {
+        const key = element.getAttribute('data-key');
+        if (translations[lang] && translations[lang][key]) {
+          element.textContent = translations[lang][key];
+        }
+      });
+      
+      // Update placeholders
+      const placeholders = document.querySelectorAll('input[placeholder], select option');
+      placeholders.forEach(element => {
+        if (element.classList.contains('mcb-name')) {
+          element.placeholder = translations[lang]['circuit-placeholder'] || 'Circuit Name';
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Language switcher
+      document.getElementById('language-select').addEventListener('change', (e) => {
+        updateLanguage(e.target.value);
+      });
+
+      // Animation delays
+      const sections = document.querySelectorAll('.slide-up');
+      sections.forEach((section, index) => {
+        section.style.animationDelay = `${index * 200}ms`;
+      });
+
+      // Calculate System
+      document.getElementById('btn-calc-system').addEventListener('click', calculateSystem);
+      
+      // MCB Management
+      document.getElementById('btn-add-mcb').addEventListener('click', addMCB);
+      document.getElementById('btn-clear-mcb').addEventListener('click', clearMCB);
+      document.getElementById('btn-calc-mcb').addEventListener('click', calculatePDB);
+      
+      // Diagram
+      document.getElementById('btn-generate-diagram').addEventListener('click', generateDiagram);
+      
+      // Diagram Controls
+      document.getElementById('zoom-in').addEventListener('click', () => zoomDiagram(1.2));
+      document.getElementById('zoom-out').addEventListener('click', () => zoomDiagram(0.8));
+      document.getElementById('reset-view').addEventListener('click', resetDiagramView);
+      document.getElementById('export-diagram').addEventListener('click', exportDiagram);
+      document.getElementById('toggle-animation').addEventListener('click', toggleAnimation);
+      
+      // Window resize listener
+      window.addEventListener('resize', handleResize);
+    });
+
+    function calculateSystem() {
+      const btn = document.getElementById('btn-calc-system');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '<div class="spinner mr-3"></div>Calculating...';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        const sysType = document.getElementById('select-system-type').value;
+        const IB = parseFloat(document.getElementById('input-main-breaker').value);
+        const L = parseFloat(document.getElementById('input-length').value);
+        const type = document.getElementById('select-wire-type').value;
+        const conduitType = document.getElementById('select-conduit-type').value;
+        
+        if(isNaN(IB) || isNaN(L)) {
+          alert(currentLanguage === 'th' ? 'กรุณากรอกข้อมูลให้ครบถ้วน' : 'Please fill in all required fields');
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+          return;
+        }
+
+        systemData = { sysType, IB, L, type, conduitType };
+
+        // Calculations
+        document.getElementById('res-total-load').textContent = IB;
+        
+        const inputPower = parseFloat(document.getElementById('input-power').value) || 0;
+        const allowable = sysType === 'single' ? IB * 220 : Math.sqrt(3) * 380 * IB;
+        let powerText = inputPower.toFixed(0);
+        if(inputPower > allowable) {
+          powerText += currentLanguage === 'th' ? ' (เกินค่าที่กำหนด)' : ' (Exceeds limit)';
+        }
+        document.getElementById('res-total-power').textContent = powerText;
+        
+        const wireSize = getWireSize(type, IB);
+        document.getElementById('res-wire-size').textContent = wireSize;
+        
+        const conduit = calculateConduitSize(type, wireSize, sysType);
+        document.getElementById('res-conduit-inch').textContent = conduit;
+        
+        const A = wireSize * 1e-6;
+        const vd = (() => {
+          if(sysType === 'single') return (2 * IB * L * RHO_CU) / A;
+          if(sysType === 'threeY') return (Math.sqrt(3) * IB * L * RHO_CU) / A;
+          return (IB * L * RHO_CU) / A;
+        })();
+        
+        const nominalVoltage = sysType === 'single' ? 220 : 380;
+        const vdPercent = (vd / nominalVoltage) * 100;
+        
+        document.getElementById('res-voltage-drop').textContent = `${vd.toFixed(2)} V (${vdPercent.toFixed(2)}%)`;
+        
+        systemData.voltageDrop = `${vd.toFixed(2)} V (${vdPercent.toFixed(2)}%)`;
+        systemData.voltageDropPercent = vdPercent;
+        
+        const vdStatus = document.getElementById('voltage-drop-status');
+        const vdColor = document.getElementById('res-voltage-drop-color');
+        
+        if(vdPercent <= 3) {
+          vdStatus.className = 'status-dot status-success status-indicator';
+          vdColor.className = 'text-h4 font-bold text-emerald-600';
+        } else if(vdPercent <= 5) {
+          vdStatus.className = 'status-dot status-warning status-indicator';
+          vdColor.className = 'text-h4 font-bold text-amber-600';
+        } else {
+          vdStatus.className = 'status-dot status-error status-indicator';
+          vdColor.className = 'text-h4 font-bold text-red-600';
+        }
+        
+        document.getElementById('res-vd-threshold').textContent = '3% (Lighting) / 5% (Others) / 8% (Private Transformer)';
+        
+        const entry = GROUND_TABLE.find(e => IB >= e.min && IB <= e.max);
+        const groundWire = entry ? entry.size : '-';
+        document.getElementById('res-ground-wire').textContent = groundWire;
+        systemData.groundWire = groundWire;
+        
+        document.getElementById('results-system').classList.remove('hidden');
+        
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+      }, 1000);
+    }
+
+    function getWireSize(wireType, current) {
+      const sizeMap = WIRE_SIZE_MAP[wireType];
+      if (!sizeMap) return '-';
+      
+      for (const [maxCurrent, wireSize] of Object.entries(sizeMap)) {
+        if (current <= parseInt(maxCurrent)) {
+          return wireSize;
+        }
+      }
+      return Object.values(sizeMap).pop();
+    }
+
+    function calculateConduitSize(wireType, wireSize, sysType) {
+      if (wireType === 'THW') {
+        const wireCount = sysType === 'single' ? 2 : 3;
+        const totalWireArea = wireSize * wireCount;
+        const requiredArea = totalWireArea / 0.4;
+        
+        const conduitOptions = [
+          {inch:'1/2"', area: 127}, {inch:'3/4"', area: 200}, {inch:'1"', area: 314},
+          {inch:'1-1/4"', area: 489}, {inch:'1-1/2"', area: 645}, {inch:'2"', area: 1075},
+          {inch:'2-1/2"', area: 1711}, {inch:'3"', area: 2463}
+        ];
+        
+        for(const option of conduitOptions) {
+          if(option.area >= requiredArea) {
+            return option.inch;
+          }
+        }
+        return '3"';
+      } else {
+        const defaultSizes = {VFF:'3/4"', VCT:'1"', 'VCT-G':'1"', NYY:'1-1/4"'};
+        return defaultSizes[wireType] || '1"';
+      }
+    }
+
+    function addMCB() {
+      const mcbList = document.getElementById('mcb-list');
+      const row = document.createElement('div');
+      row.className = 'neu-card p-6 hover-lift';
+      row.style.animation = 'slideUp 400ms ease-out forwards';
+      
+      row.innerHTML = `
+        <div class="mcb-grid">
+          <div class="space-y-2">
+            <label class="block text-caption font-semibold text-neutral-700" data-key="mcb-size">${translations[currentLanguage]['mcb-size']}</label>
+            <select class="mcb-size neu-input w-full px-3 py-2 text-body font-medium outline-none">
+              ${STANDARD_BREAKERS.map(b => `<option value="${b}">${b}A</option>`).join('')}
+            </select>
+          </div>
+          <div class="space-y-2">
+            <label class="block text-caption font-semibold text-neutral-700" data-key="circuit-name">${translations[currentLanguage]['circuit-name']}</label>
+            <input type="text" placeholder="${translations[currentLanguage]['circuit-placeholder']}" class="mcb-name neu-input w-full px-3 py-2 text-body font-medium outline-none" />
+          </div>
+          <div class="space-y-2">
+            <label class="block text-caption font-semibold text-neutral-700" data-key="circuit-power">${translations[currentLanguage]['circuit-power']}</label>
+            <input type="number" placeholder="1000" class="mcb-power neu-input w-full px-3 py-2 text-body font-medium outline-none" />
+          </div>
+          <div class="text-center space-y-2">
+            <label class="block text-caption font-semibold text-neutral-700" data-key="load-percent">${translations[currentLanguage]['load-percent']}</label>
+            <div class="mcb-load-percent inline-flex items-center justify-center w-16 h-10 bg-emerald-100 text-emerald-800 rounded-lg font-bold text-caption">0%</div>
+          </div>
+          <div class="text-center">
+            <button class="remove-mcb btn-accent ripple px-3 py-2 text-small font-bold">
+              <i class="fas fa-trash mr-1"></i><span class="hidden sm:inline">${translations[currentLanguage]['remove']}</span>
+            </button>
+          </div>
+        </div>
+      `;
+      
+      const sizeSelect = row.querySelector('.mcb-size');
+      const powerInput = row.querySelector('.mcb-power');
+      const percentSpan = row.querySelector('.mcb-load-percent');
+      const removeBtn = row.querySelector('.remove-mcb');
+      
+      function updatePercent() {
+        const power = parseFloat(powerInput.value) || 0;
+        const breaker = parseFloat(sizeSelect.value) || 0;
+        const percent = breaker > 0 ? ((power / (breaker * 220)) * 100).toFixed(1) : '0';
+        percentSpan.textContent = percent + '%';
+        
+        if(parseFloat(percent) > 80) {
+          percentSpan.className = 'mcb-load-percent inline-flex items-center justify-center w-16 h-10 bg-red-100 text-red-800 rounded-lg font-bold text-caption';
+        } else if(parseFloat(percent) > 60) {
+          percentSpan.className = 'mcb-load-percent inline-flex items-center justify-center w-16 h-10 bg-amber-100 text-amber-800 rounded-lg font-bold text-caption';
+        } else {
+          percentSpan.className = 'mcb-load-percent inline-flex items-center justify-center w-16 h-10 bg-emerald-100 text-emerald-800 rounded-lg font-bold text-caption';
+        }
+      }
+      
+      powerInput.addEventListener('input', updatePercent);
+      sizeSelect.addEventListener('change', updatePercent);
+      removeBtn.addEventListener('click', () => {
+        row.style.animation = 'fadeOut 300ms ease-in forwards';
+        setTimeout(() => row.remove(), 300);
+      });
+      
+      mcbList.appendChild(row);
+    }
+
+    function clearMCB() {
+      const mcbList = document.getElementById('mcb-list');
+      const rows = mcbList.querySelectorAll('.neu-card');
+      rows.forEach((row, index) => {
+        setTimeout(() => {
+          row.style.animation = 'fadeOut 200ms ease-in forwards';
+          setTimeout(() => row.remove(), 200);
+        }, index * 50);
+      });
+      mcbData = [];
+    }
+
+    function calculatePDB() {
+      const btn = document.getElementById('btn-calc-mcb');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '<div class="spinner mr-3"></div>Calculating...';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        const resultsContainer = document.getElementById('pdb-results');
+        resultsContainer.innerHTML = '';
+        mcbData = [];
+        
+        document.getElementById('mcb-list').querySelectorAll('.neu-card').forEach(row => {
+          const size = parseFloat(row.querySelector('.mcb-size').value);
+          const name = row.querySelector('.mcb-name').value || (currentLanguage === 'th' ? 'ไม่ระบุชื่อ' : 'Unnamed Circuit');
+          const power = parseFloat(row.querySelector('.mcb-power').value) || 0;
+          const percent = row.querySelector('.mcb-load-percent').textContent;
+          
+          mcbData.push({ size, name, power, percent: parseFloat(percent) });
+          
+          let recommendation = '';
+          if(parseFloat(percent) > 80 && size) {
+            const nextBreaker = STANDARD_BREAKERS.find(b => b > size) || size;
+            recommendation = currentLanguage === 'th' ? 
+              ` - แนะนำ ${nextBreaker}A MCB` : 
+              ` - Recommend ${nextBreaker}A MCB`;
+          }
+          
+          const resultDiv = document.createElement('div');
+          resultDiv.className = 'glass-card p-6 rounded-2xl hover-lift';
+          
+          let statusClass = 'status-success';
+          if(parseFloat(percent) > 80) statusClass = 'status-error';
+          else if(parseFloat(percent) > 60) statusClass = 'status-warning';
+          
+          resultDiv.innerHTML = `
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <span class="status-dot ${statusClass} status-indicator"></span>
+                <div>
+                  <div class="text-body font-bold text-neutral-800">${name}</div>
+                  <div class="text-caption text-neutral-600">${size}A, ${power}W (${percent})</div>
+                </div>
+              </div>
+              ${recommendation ? `<div class="text-caption text-warning-600 font-semibold">${recommendation}</div>` : ''}
+            </div>
+          `;
+          
+          resultsContainer.appendChild(resultDiv);
+        });
+        
+        document.getElementById('results-pdb').classList.remove('hidden');
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+      }, 800);
+    }
+
+    function generateDiagram() {
+      const btn = document.getElementById('btn-generate-diagram');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '<div class="spinner mr-3"></div>Generating...';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        const svg = document.getElementById('single-line-diagram');
+        
+        // Clear existing content except defs
+        const defs = svg.querySelector('defs');
+        svg.innerHTML = '';
+        svg.appendChild(defs);
+        
+        // Add grid background
+        const gridRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        gridRect.setAttribute('width', '100%');
+        gridRect.setAttribute('height', '100%');
+        gridRect.setAttribute('fill', 'url(#grid)');
+        svg.appendChild(gridRect);
+
+        // Responsive scaling
+        const isSmallScreen = window.innerWidth < 768;
+        const scale = isSmallScreen ? 0.7 : 1;
+        const baseX = isSmallScreen ? 40 : 60;
+        const baseY = isSmallScreen ? 40 : 60;
+
+        // Draw main components with enhanced interactivity
+        const mainSupply = drawComponent(svg, baseX, baseY, 120 * scale, 70 * scale, 
+          translations[currentLanguage]['main-supply'], '#1d4ed8', {
+            type: 'main-supply',
+            voltage: systemData.sysType === 'single' ? '220V' : '380V',
+            system: systemData.sysType
+          });
+        
+        if(systemData.IB) {
+          const mainBreaker = drawBreaker(svg, 200 * scale + baseX, baseY, 
+            `${systemData.IB}A\n${translations[currentLanguage]['main-breaker-label']}`, {
+              rating: systemData.IB,
+              type: 'main-breaker'
+            });
+        }
+        
+        const pdbPanel = drawComponent(svg, 320 * scale + baseX, baseY, 140 * scale, 80 * scale, 
+          translations[currentLanguage]['pdb-panel'], '#dc2626', {
+            type: 'pdb',
+            circuits: mcbData.length,
+            totalLoad: mcbData.reduce((sum, mcb) => sum + mcb.power, 0)
+          });
+        
+        // Draw wires with enhanced effects
+        drawWire(svg, (baseX + 120 * scale), (baseY + 35 * scale), (200 * scale + baseX), (baseY + 20));
+        drawWire(svg, (240 * scale + baseX), (baseY + 20), (320 * scale + baseX), (baseY + 35 * scale));
+        
+        // Add power flow animation points
+        if (animationEnabled) {
+          addPowerFlowAnimation(svg, baseX, baseY, scale);
+        }
+        
+        // MCB circuits with enhanced interactivity
+        const maxCircuits = isSmallScreen ? 6 : 8;
+        const circuitsToShow = Math.min(mcbData.length, maxCircuits);
+        const startY = 140 + baseY;
+        const spacing = isSmallScreen ? 35 : 40;
+        
+        mcbData.slice(0, maxCircuits).forEach((mcb, index) => {
+          const yPos = startY + (index * spacing);
+          
+          // Vertical distribution line
+          drawWire(svg, (390 * scale + baseX), (120 + baseY), (390 * scale + baseX), yPos);
+          // Horizontal branch line
+          drawWire(svg, (390 * scale + baseX), yPos, (440 * scale + baseX), yPos);
+          
+          // MCB breaker
+          const mcbBreaker = drawBreaker(svg, (440 * scale + baseX), yPos - 15, `${mcb.size}A`, {
+            rating: mcb.size,
+            load: mcb.power,
+            percent: mcb.percent,
+            name: mcb.name
+          });
+          
+          // Load component
+          const loadText = mcb.name.length > (isSmallScreen ? 10 : 15) ? 
+            mcb.name.substring(0, isSmallScreen ? 10 : 15) + '...' : mcb.name;
+          
+          let loadColor = '#f59e0b';
+          if (mcb.percent > 80) loadColor = '#ef4444';
+          else if (mcb.percent > 60) loadColor = '#f97316';
+          
+          const loadComponent = drawComponent(svg, (500 * scale + baseX), yPos - 20, 
+            (160 * scale), 40, `${loadText}\n${mcb.power}W`, loadColor, {
+              type: 'load',
+              name: mcb.name,
+              power: mcb.power,
+              percent: mcb.percent
+            });
+          
+          // Connection wire
+          drawWire(svg, (480 * scale + baseX), yPos, (500 * scale + baseX), yPos);
+          
+          // Add power flow for this circuit
+          if (animationEnabled && mcb.power > 0) {
+            addCircuitPowerFlow(svg, (440 * scale + baseX), yPos, (500 * scale + baseX), yPos);
+          }
+        });
+        
+        // Show additional circuits indicator
+        if(mcbData.length > maxCircuits) {
+          addText(svg, (500 * scale + baseX), startY + (maxCircuits * spacing) + 25, 
+            currentLanguage === 'th' ? 
+            `+${mcbData.length - maxCircuits} วงจรเพิ่มเติม...` : 
+            `+${mcbData.length - maxCircuits} more circuits...`, 
+            '#64748b');
+        }
+        
+        // Add system status indicator
+        addSystemStatusIndicator(svg, baseX, baseY + 450, scale);
+        
+        updateSystemInfoPanel();
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+      }, 1200);
+    }
+
+    function drawComponent(svg, x, y, width, height, text, color = '#334155', data = {}) {
+      const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      group.classList.add('component-hover');
+      
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('x', x);
+      rect.setAttribute('y', y);
+      rect.setAttribute('width', width);
+      rect.setAttribute('height', height);
+      rect.setAttribute('fill', '#ffffff');
+      rect.setAttribute('stroke', color);
+      rect.setAttribute('stroke-width', '2');
+      rect.setAttribute('rx', '8');
+      rect.setAttribute('filter', 'url(#glow)');
+      group.appendChild(rect);
+
+      const textElement = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      textElement.setAttribute('x', x + width/2);
+      textElement.setAttribute('y', y + height/2);
+      textElement.setAttribute('text-anchor', 'middle');
+      textElement.setAttribute('dominant-baseline', 'middle');
+      textElement.setAttribute('class', 'component-text');
+      textElement.setAttribute('fill', color);
+      
+      const isSmallScreen = window.innerWidth < 768;
+      const fontSize = isSmallScreen ? '9px' : '11px';
+      textElement.setAttribute('font-size', fontSize);
+      
+      const lines = text.split('\n');
+      if(lines.length > 1) {
+        lines.forEach((line, index) => {
+          const tspan = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
+          tspan.setAttribute('x', x + width/2);
+          tspan.setAttribute('dy', index === 0 ? '-0.4em' : '1.1em');
+          tspan.textContent = line;
+          textElement.appendChild(tspan);
+        });
+      } else {
+        textElement.textContent = text;
+      }
+      
+      group.appendChild(textElement);
+      
+      // Add interactivity
+      group.addEventListener('mouseenter', (e) => {
+        let tooltipContent = `<strong>${text.replace('\n', ' ')}</strong>`;
+        if (data.type === 'main-supply') {
+          tooltipContent += `<br/>Voltage: ${data.voltage}<br/>System: ${data.system}`;
+        } else if (data.type === 'pdb') {
+          tooltipContent += `<br/>Circuits: ${data.circuits}<br/>Total Load: ${data.totalLoad}W`;
+        } else if (data.type === 'load') {
+          tooltipContent += `<br/>Power: ${data.power}W<br/>Load: ${data.percent.toFixed(1)}%`;
+        }
+        showTooltip(e, tooltipContent);
+      });
+      
+      group.addEventListener('mouseleave', hideTooltip);
+      group.addEventListener('mousemove', (e) => {
+        tooltip.style.left = e.pageX + 15 + 'px';
+        tooltip.style.top = e.pageY - 10 + 'px';
+      });
+      
+      svg.appendChild(group);
+      return group;
+    }
+
+    function drawBreaker(svg, x, y, text, data = {}) {
+      const isSmallScreen = window.innerWidth < 768;
+      const size = isSmallScreen ? 35 : 45;
+      
+      const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      group.classList.add('component-hover');
+      
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('x', x);
+      rect.setAttribute('y', y);
+      rect.setAttribute('width', size);
+      rect.setAttribute('height', size);
+      rect.setAttribute('fill', '#ffffff');
+      rect.setAttribute('stroke', '#ef4444');
+      rect.setAttribute('stroke-width', '2');
+      rect.setAttribute('rx', '4');
+      rect.setAttribute('filter', 'url(#glow)');
+      group.appendChild(rect);
+
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', x + 6);
+      line.setAttribute('y1', y + size - 6);
+      line.setAttribute('x2', x + size - 6);
+      line.setAttribute('y2', y + 6);
+      line.setAttribute('stroke', '#ef4444');
+      line.setAttribute('stroke-width', '2');
+      line.setAttribute('stroke-linecap', 'round');
+      group.appendChild(line);
+
+      const textElement = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      textElement.setAttribute('x', x + size/2);
+      textElement.setAttribute('y', y - 8);
+      textElement.setAttribute('text-anchor', 'middle');
+      textElement.setAttribute('class', 'component-text');
+      textElement.setAttribute('fill', '#ef4444');
+      textElement.setAttribute('font-size', isSmallScreen ? '8px' : '10px');
+      textElement.textContent = text;
+      group.appendChild(textElement);
+      
+      // Add interactivity
+      group.addEventListener('mouseenter', (e) => {
+        let tooltipContent = `<strong>MCB ${data.rating}A</strong>`;
+        if (data.load) {
+          tooltipContent += `<br/>Load: ${data.load}W<br/>Utilization: ${data.percent.toFixed(1)}%`;
+          if (data.name) tooltipContent += `<br/>Circuit: ${data.name}`;
+        }
+        showTooltip(e, tooltipContent);
+      });
+      
+      group.addEventListener('mouseleave', hideTooltip);
+      group.addEventListener('mousemove', (e) => {
+        tooltip.style.left = e.pageX + 15 + 'px';
+        tooltip.style.top = e.pageY - 10 + 'px';
+      });
+      
+      svg.appendChild(group);
+      return group;
+    }
+
+    function drawWire(svg, x1, y1, x2, y2, strokeWidth = 3) {
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', x1);
+      line.setAttribute('y1', y1);
+      line.setAttribute('x2', x2);
+      line.setAttribute('y2', y2);
+      line.setAttribute('class', 'wire-line');
+      line.setAttribute('stroke-width', strokeWidth);
+      line.setAttribute('stroke-linecap', 'round');
+      
+      // Add wire info on hover
+      line.addEventListener('mouseenter', (e) => {
+        let tooltipContent = `<strong>${translations[currentLanguage]['wire-info']}</strong>`;
+        if (systemData.type) {
+          tooltipContent += `<br/>Type: ${systemData.type}`;
+        }
+        if (systemData.IB) {
+          const wireSize = getWireSize(systemData.type, systemData.IB);
+          tooltipContent += `<br/>Size: ${wireSize}mm²`;
+        }
+        showTooltip(e, tooltipContent);
+      });
+      
+      line.addEventListener('mouseleave', hideTooltip);
+      
+      svg.appendChild(line);
+      return line;
+    }
+
+    function addPowerFlowAnimation(svg, baseX, baseY, scale) {
+      // Clear existing animations
+      powerFlowIntervals.forEach(interval => clearInterval(interval));
+      powerFlowIntervals = [];
+      
+      // Main power flow from supply to PDB
+      const flowPath1 = [
+        { x: baseX + 120 * scale, y: baseY + 35 * scale },
+        { x: 200 * scale + baseX, y: baseY + 20 },
+        { x: 240 * scale + baseX, y: baseY + 20 },
+        { x: 320 * scale + baseX, y: baseY + 35 * scale }
+      ];
+      
+      animatePowerFlow(svg, flowPath1, '#3b82f6');
+    }
+
+    function addCircuitPowerFlow(svg, x1, y1, x2, y2) {
+      const flowPath = [{ x: x1, y: y1 }, { x: x2, y: y2 }];
+      animatePowerFlow(svg, flowPath, '#f59e0b', 200);
+    }
+
+    function animatePowerFlow(svg, path, color, speed = 100) {
+      let currentIndex = 0;
+      
+      const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      dot.setAttribute('r', '4');
+      dot.setAttribute('fill', color);
+      dot.setAttribute('opacity', '0.8');
+      dot.classList.add('power-flow');
+      svg.appendChild(dot);
+      
+      const interval = setInterval(() => {
+        if (currentIndex >= path.length - 1) {
+          currentIndex = 0;
+        }
+        
+        const start = path[currentIndex];
+        const end = path[currentIndex + 1];
+        
+        dot.setAttribute('cx', start.x);
+        dot.setAttribute('cy', start.y);
+        
+        // Animate to next point
+        const duration = speed;
+        const startTime = Date.now();
+        
+        function animate() {
+          const elapsed = Date.now() - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          
+          const x = start.x + (end.x - start.x) * progress;
+          const y = start.y + (end.y - start.y) * progress;
+          
+          dot.setAttribute('cx', x);
+          dot.setAttribute('cy', y);
+          
+          if (progress < 1) {
+            requestAnimationFrame(animate);
+          } else {
+            currentIndex++;
+          }
+        }
+        
+        animate();
+      }, speed * 2);
+      
+      powerFlowIntervals.push(interval);
+    }
+
+    function addSystemStatusIndicator(svg, baseX, baseY, scale) {
+      const statusGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      
+      // Status background
+      const statusBg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      statusBg.setAttribute('x', baseX);
+      statusBg.setAttribute('y', baseY);
+      statusBg.setAttribute('width', 300 * scale);
+      statusBg.setAttribute('height', 60 * scale);
+      statusBg.setAttribute('fill', 'rgba(255, 255, 255, 0.9)');
+      statusBg.setAttribute('stroke', '#cbd5e1');
+      statusBg.setAttribute('stroke-width', '1');
+      statusBg.setAttribute('rx', '8');
+      statusGroup.appendChild(statusBg);
+      
+      // System status
+      let statusText = currentLanguage === 'th' ? 'สถานะระบบ: ' : 'System Status: ';
+      let statusColor = '#10b981';
+      
+      if (systemData.voltageDropPercent > 5) {
+        statusText += currentLanguage === 'th' ? 'แรงดันตกเกิน' : 'Voltage Drop Exceeded';
+        statusColor = '#ef4444';
+      } else if (systemData.voltageDropPercent > 3) {
+        statusText += currentLanguage === 'th' ? 'แรงดันตกใกล้เกิน' : 'Voltage Drop Warning';
+        statusColor = '#f59e0b';
+      } else {
+        statusText += currentLanguage === 'th' ? 'ปกติ' : 'Normal';
+      }
+      
+      const statusTextElement = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      statusTextElement.setAttribute('x', baseX + 10);
+      statusTextElement.setAttribute('y', baseY + 20);
+      statusTextElement.setAttribute('class', 'component-text');
+      statusTextElement.setAttribute('fill', statusColor);
+      statusTextElement.setAttribute('font-size', '12px');
+      statusTextElement.textContent = statusText;
+      statusGroup.appendChild(statusTextElement);
+      
+      // Compliance text
+      const complianceText = currentLanguage === 'th' ? 
+        'ออกแบบตาม IEC 60364-5-52' : 
+        'IEC 60364-5-52 Compliant';
+      
+      const complianceElement = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      complianceElement.setAttribute('x', baseX + 10);
+      complianceElement.setAttribute('y', baseY + 40);
+      complianceElement.setAttribute('class', 'component-text');
+      complianceElement.setAttribute('fill', '#64748b');
+      complianceElement.setAttribute('font-size', '10px');
+      complianceElement.textContent = complianceText;
+      statusGroup.appendChild(complianceElement);
+      
+      svg.appendChild(statusGroup);
+    }
+
+    function addText(svg, x, y, text, color = '#334155') {
+      const isSmallScreen = window.innerWidth < 768;
+      const textElement = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      textElement.setAttribute('x', x);
+      textElement.setAttribute('y', y);
+      textElement.setAttribute('class', 'component-text');
+      textElement.setAttribute('fill', color);
+      textElement.setAttribute('font-size', isSmallScreen ? '9px' : '11px');
+      textElement.textContent = text;
+      svg.appendChild(textElement);
+    }
+
+    function updateSystemInfoPanel() {
+      const panel = document.getElementById('system-info-panel');
+      
+      if(Object.keys(systemData).length > 0) {
+        const wireTypeLabel = currentLanguage === 'th' ? 'ประเภทสาย' : 'Wire Type';
+        const conduitLabel = currentLanguage === 'th' ? 'ประเภทท่อ' : 'Conduit';
+        const lengthLabel = currentLanguage === 'th' ? 'ความยาว' : 'Length';
+        const systemLabel = currentLanguage === 'th' ? 'ระบบ' : 'System';
+        const voltageDropLabel = currentLanguage === 'th' ? 'แรงดันตก' : 'Voltage Drop';
+        const complianceLabel = currentLanguage === 'th' ? 'ออกแบบตามมาตรฐาน IEC 60364-5-52' : 'IEC 60364-5-52 Compliant Design';
+
+        document.getElementById('info-wire-type').textContent = `${wireTypeLabel}: ${systemData.type || '-'}`;
+        document.getElementById('info-conduit').textContent = `${conduitLabel}: ${systemData.conduitType || '-'}`;
+        document.getElementById('info-length').textContent = `${lengthLabel}: ${systemData.L || '-'}m`;
+        
+        const sysLabel = systemData.sysType === 'single' ? 
+          (currentLanguage === 'th' ? 'เฟสเดียว (220V)' : 'Single Phase (220V)') : 
+          systemData.sysType === 'threeY' ? '3-Phase Y (380V)' : '3-Phase Δ (415V)';
+        document.getElementById('info-system').textContent = `${systemLabel}: ${sysLabel}`;
+        document.getElementById('info-voltage-drop').textContent = `${voltageDropLabel}: ${systemData.voltageDrop || '-'}`;
+        document.getElementById('info-compliance').textContent = complianceLabel;
+        
+        panel.classList.remove('hidden');
+      }
+    }
+
+    // Diagram control functions
+    function zoomDiagram(factor) {
+      diagramZoom *= factor;
+      diagramZoom = Math.max(0.5, Math.min(3, diagramZoom)); // Limit zoom range
+      
+      const svg = document.getElementById('single-line-diagram');
+      svg.style.transform = `scale(${diagramZoom}) translate(${diagramPan.x}px, ${diagramPan.y}px)`;
+    }
+
+    function resetDiagramView() {
+      diagramZoom = 1;
+      diagramPan = { x: 0, y: 0 };
+      
+      const svg = document.getElementById('single-line-diagram');
+      svg.style.transform = 'scale(1) translate(0px, 0px)';
+    }
+
+    function toggleAnimation() {
+      animationEnabled = !animationEnabled;
+      const btn = document.getElementById('toggle-animation');
+      const icon = btn.querySelector('i');
+      
+      if (animationEnabled) {
+        icon.className = 'fas fa-pause';
+        // Restart animations if diagram exists
+        if (Object.keys(systemData).length > 0) {
+          generateDiagram();
+        }
+      } else {
+        icon.className = 'fas fa-play';
+        // Stop all animations
+        powerFlowIntervals.forEach(interval => clearInterval(interval));
+        powerFlowIntervals = [];
+        
+        // Remove power flow dots
+        const svg = document.getElementById('single-line-diagram');
+        svg.querySelectorAll('.power-flow').forEach(dot => dot.remove());
+      }
+    }
+
+    function exportDiagram() {
+      const svg = document.getElementById('single-line-diagram');
+      const svgData = new XMLSerializer().serializeToString(svg);
+      
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      
+      canvas.width = 1200;
+      canvas.height = 600;
+      
+      img.onload = function() {
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0);
+        
+        const link = document.createElement('a');
+        link.download = 'voltiq-diagram.png';
+        link.href = canvas.toDataURL();
+        link.click();
+      };
+      
+      const blob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      img.src = url;
+    }
+
+    function handleResize() {
+      if (Object.keys(systemData).length > 0 || mcbData.length > 0) {
+        setTimeout(() => {
+          if (document.getElementById('single-line-diagram').children.length > 2) {
+            generateDiagram();
+          }
+        }, 300);
+      }
+    }
+
+    // Touch and pan support for mobile
+    let isPanning = false;
+    let lastPanPoint = { x: 0, y: 0 };
+
+    document.getElementById('single-line-diagram').addEventListener('touchstart', (e) => {
+      if (e.touches.length === 1) {
+        isPanning = true;
+        lastPanPoint = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      }
+    });
+
+    document.getElementById('single-line-diagram').addEventListener('touchmove', (e) => {
+      if (isPanning && e.touches.length === 1) {
+        e.preventDefault();
+        const deltaX = e.touches[0].clientX - lastPanPoint.x;
+        const deltaY = e.touches[0].clientY - lastPanPoint.y;
+        
+        diagramPan.x += deltaX / diagramZoom;
+        diagramPan.y += deltaY / diagramZoom;
+        
+        const svg = document.getElementById('single-line-diagram');
+        svg.style.transform = `scale(${diagramZoom}) translate(${diagramPan.x}px, ${diagramPan.y}px)`;
+        
+        lastPanPoint = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      }
+    });
+
+    document.getElementById('single-line-diagram').addEventListener('touchend', () => {
+      isPanning = false;
+    });
+  </script>
+</body>
+</html>
